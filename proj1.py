@@ -6,6 +6,8 @@ email: jennycha@umich.edu
 
 '''
 
+
 import unittest
 
 
+def count_words(s):
