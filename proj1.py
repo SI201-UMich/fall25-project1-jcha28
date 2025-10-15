@@ -17,13 +17,16 @@ def read_penguin_data(file_name): #reads/analyzes penguin data from csv file
             data.append(row)
     return data
 
-def get_data(data): #returns columns, sample row, and total rows
+def get_data(data): #gets data of columns, sample row, and total rows
     if len(data) > 0:
         columns = list(data[0].keys())
+        sample = data[0]
     else:
         columns = []
-    
+        sample = {}
 
+    total_rows = len(data)
+    return columns, sample, total_rows
 
 
 def avg_bodymass(data): #calculation 1: what's the average body mass by species and sex
