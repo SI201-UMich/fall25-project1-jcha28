@@ -9,34 +9,64 @@ email: jennycha@umich.edu
 import csv #using penguins dataset
 
 
-def read_penguin_data(filename): #reads/analyzes penguin data from csv file
+def read_penguin_data(file_name): #reads/analyzes penguin data from csv file
     data = []
-    with open(filename, 'r') as file:
+    with open(file_name, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
             data.append(row)
     return data
 
+def get_data(data): #returns columns, sample row, and total rows
+    if len(data) > 0:
+        columns = list(data[0].keys())
+    else:
+        columns = []
+    
+
+
+
 def avg_bodymass(data): #calculation 1: what's the average body mass by species and sex
-    results = []
-    totals = {}
-    counts = {}
 
-    for i in range(1, data):
-        row = data[i]
-        species = row[0]
-        sex = row[i+1]
-        body_mass = row[i-1]
+    all_animals = {}
 
-        if species and sex and body_mass != 'NA':
+    for row in data: #itterate through each row of data
+        species = row['species']
+        sex = row['sex']
+        body_mass = row['body_mass']
+
+        if species and sex and body_mass != 'NA': #checks existance of data
             body_mass = float(body_mass)
+            key = (species, sex)
+            if key not in all_animals:
+                all_animals[key] = {'total_mass': 0, 'count': 0}
+            all_animals[key]['total_mass'] += body_mass
+            all_animals[key]['count'] += 1
 
-
-
-
-    return results
+        averages = {} #calculates the averages
+        for key, value in all_animals.items():
+            averages[key] = float(f'{value['total_mass'] / value['count']:.2f}')
+        return averages
 
     pass
+
+def flipper_length_over200(data): #calculation 2: what % of penquins have a flipper length over 200mm
+    total_count = 0
+    over200_count = 0
+
+    for row in data:
+        flipper = row['flipper length']
+        if flipper != 'NA':
+            flipper_value = float(flipper)
+            total_count += 1
+            if flipper_value > 200:
+                over200_count += 1
+
+    if total_count == 0:
+        return 0.0
+    
+    percentage = (over200_count / total_count) * 100
+    return float(f'{percentage:.2f}')
 
 
 def test_calc1(): #test case for calculation 1 (avg boddy mass)
