@@ -28,6 +28,9 @@ def avg_bodymass(data): #calculation 1: what's the average body mass by species 
         sex = row[i+1]
         body_mass = row[i-1]
 
+        if species and sex and body_mass != 'NA':
+            body_mass = float(body_mass)
+
 
 
 
@@ -89,4 +92,34 @@ def test_calc1(): #test case for calculation 1 (avg boddy mass)
         print(f'calc_avg_bodymass test failed: {result}')
 
 def test_calc2(): #test case for calculation 2 (flipper length > 200mm)
+    #gen1
+    data = [
+        {'flipper length': '210'},
+        {'flipper length': '190'}
+    ]
+    result = flipper_length_over200(data)
+    if result == 50.00:
+        print('flipper length test passed')
+    else:
+        print(f'flipper length test failed: {result}')
+
+    #gen2
+    data = [
+        {'flipper length': '210'},
+        {'flipper length': '220'}
+    ]
+    result = flipper_length_over200(data)
+    if result == 100.00:
+        print('flipper length test passed')
+    else:
+        print(f'flipper length test failed: {result}')
+
+    
+
+def main():
+
+
+if __name__ == '__main__':
+    main()
+
 
