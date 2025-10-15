@@ -72,6 +72,18 @@ def flipper_length_over200(data): #calculation 2: what % of penquins have a flip
     return float(f'{percentage:.2f}')
 
 
+def results_txt(file_name, averages, flip_percent):
+    with open(file_name, 'w') as file:
+        file.write('Penguin Dataset Calculations\n')
+        file.write('Average Body Mass by Species and Sex')
+        for (species, sex), avg_mass in averages.items():
+            file.write(f'{species} ({sex}): {avg_mass} grams\n')
+
+        file.write('Percentage of Penguins with Flipper Length " 200mm:\n')
+        file.write(f'{flip_percent}%\n')
+
+
+
 def test_calc1(): #test case for calculation 1 (avg boddy mass)
     #gen1
     data = [
@@ -150,6 +162,11 @@ def test_calc2(): #test case for calculation 2 (flipper length > 200mm)
     
 
 def main():
+    file_name = 'penguins.csv'
+    data = read_penguin_data(file_name)
+
+    columns, sample, total_rows = get_data(data)
+    print
 
 
 if __name__ == '__main__':
